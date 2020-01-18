@@ -159,7 +159,7 @@ function draw() {
     result()
 
     for (var i in grassArr) {
-        grassArr[i].bazmanal();
+        grassArr[i].mul();
     }
 
     for (var i in VirusArr) {
