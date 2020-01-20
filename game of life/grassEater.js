@@ -1,28 +1,15 @@
 class Xotaker extends LivingCreature{
-    constructor(x, y) {
+    constructor(x, y, index) {
         super(x, y, index);
         this.bazm = 0;
         this.sovat = 0;
-        this.index = 2;
-
     }
-    yntrelVandak(ch) {
-        this.stanalNorKordinatner();
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-
-                if (matrix[y][x] == ch) {
-                    found.push(this.directions[i]);
-                }
-            }
-
-        }
-        return found;
+    chooseCell(ch) {
+        this.getNewCoordinat();
+        return super.chooseCell(ch)
     }
-    stanalNorKordinatner() {
+
+    getNewCoordinat() {
         this.directions = [
             [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
@@ -36,13 +23,10 @@ class Xotaker extends LivingCreature{
 
     }
 
-
-    sharjvel() {
-        var datarkVandakner = this.yntrelVandak(0);
+    ride() {
+        var datarkVandakner = this.chooseCell(0);
         var norVandak = random(datarkVandakner);
-
-        if (norVandak) {
-            
+        if (norVandak) {        
             if(this.bazm > 0){
                 this.bazm -= 1
             }
@@ -56,16 +40,14 @@ class Xotaker extends LivingCreature{
             this.y = nory;
             }
             else{
-                this.mahanal()
+                this.die()
             }
         }
-
-
     }
-    utel() {
-        var xoter = this.yntrelVandak(1);
-        var norVandak = random(xoter);
 
+    eat() {
+        var xoter = this.chooseCell(1);
+        var norVandak = random(xoter);
         if (norVandak) {
             matrix[this.y][this.x] = 0;
             var norx = norVandak[0];
@@ -73,35 +55,28 @@ class Xotaker extends LivingCreature{
             matrix[nory][norx] = 2;
             this.x = norx;
             this.y = nory;
-
             for (var i in grassArr) {
                 if (norx == grassArr[i].x && nory == grassArr[i].y) {
                     grassArr.splice(i, 1);
-                    
-
                 }
             }
-            
             if(this.sovat > 0){
                 this.sovat -= 1
             }
-
             if(this.bazm >=8){
-                this.bazmanal();
+                this.mul();
             }
             else{
                 this.bazm += 1
             }
         }
         else {
-            this.sharjvel();
-
+            this.ride();
         }
-
     }
-    bazmanal() {
-        var norVandak = random(this.yntrelVandak(0));
 
+    mul() {
+        var norVandak = random(this.chooseCell(0));
         if (norVandak) {
             var newx = norVandak[0];
             var newy = norVandak[1];
@@ -109,13 +84,10 @@ class Xotaker extends LivingCreature{
             var newXotaker = new Xotaker(newx, newy);
             XotakerArr.push(newXotaker);
             this.bazm = 0;
-
         }
-
     }
 
-
-    mahanal() {
+    die() {
         matrix[this.y][this.x] = 0;
         for (var i in XotakerArr) {
             if (this.x == XotakerArr[i].x && this.y == XotakerArr[i].y) {

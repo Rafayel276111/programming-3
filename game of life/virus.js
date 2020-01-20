@@ -1,23 +1,6 @@
-class Virus {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.multiply = 0;
-        this.directions = [
-            [this.x - 1, this.y - 1],
-            [this.x, this.y - 1],
-            [this.x + 1, this.y - 1],
-            [this.x - 1, this.y],
-            [this.x + 1, this.y],
-            [this.x - 1, this.y + 1], 
-            [this.x, this.y + 1],
-            [this.x + 1, this.y + 1]
-        ];
-        this.index = 4;
+class Virus extends LivingCreature{
 
-    }
-
-    yntrelVandak() {
+    chooseCell() {
         var found = [];
         for (var i in this.directions) {
             var x = this.directions[i][0];
@@ -27,17 +10,13 @@ class Virus {
                         found.push(this.directions[i]);
                 }                
             }
-
         }
         return found;
-
     }
 
-
-
-    bazmanal() {
+    mul() {
         this.multiply++;
-        var norVandak = random(this.yntrelVandak());
+        var norVandak = random(this.chooseCell());
         if (this.multiply >=10 && norVandak) {
             var norV = new Virus(norVandak[0], norVandak[1]);
             VirusArr.push(norV);

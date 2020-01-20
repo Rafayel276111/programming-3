@@ -1,55 +1,23 @@
-class cleaner {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.energy = 8;
-        this.directions = [
-            [this.x - 1, this.y - 1],
-            [this.x, this.y - 1],
-            [this.x + 1, this.y - 1],
-            [this.x - 1, this.y],
-            [this.x + 1, this.y],
-            [this.x - 1, this.y + 1],
-            [this.x, this.y + 1],
-            [this.x + 1, this.y + 1]
-        ];
-        this.multiply = 0;
+class cleaner extends LivingCreature{
+    constructor(x, y, index) {
+        super(x, y, index);
         this.bazm = 0;
         this.sovat = 0;
-        this.index = 5;
-
     }
-    yntrelvirus(ch) {
-        this.stanalNorKordinatner();
+    chooseCell(ch1, ch2, ch3, ch4) {
+        this.getNewCoordinat();
         var found = [];
         for (var i in this.directions) {
             var x = this.directions[i][0];
             var y = this.directions[i][1];
             if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-
-                if (matrix[y][x] == ch) {
-                    found.push(this.directions[i]);
-                }
-            }
-
-        }
-        return found;
-    }
-    yntrelVandak() {
-        this.stanalNorKordinatner();
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if(matrix[y][x] !== 5 && matrix[y][x] !== 4)
+                if(matrix[y][x] == ch1||ch2||ch3||ch4)
                 found.push(this.directions[i]);
             }
-
         }
         return found;
     }
-    stanalNorKordinatner() {
+    getNewCoordinat() {
         this.directions = [
             [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
@@ -60,23 +28,19 @@ class cleaner {
             [this.x, this.y + 1],
             [this.x + 1, this.y + 1]
         ];
-
     }
 
-    sharjvel() {
-        var datarkVandakner = this.yntrelVandak();
+    raid() {
+        var datarkVandakner = this.chooseCell(0,1,2,3);
         var norVandak = random(datarkVandakner);
         if (norVandak) {
-            
             if (this.sovat < 30) {
                 this.sovat += 1
-
                 matrix[this.y][this.x] = 0;
                 var norx = norVandak[0];
                 var nory = norVandak[1];
                 this.x = norx;
                 this.y = nory;
-
                 if(matrix[nory][norx] == 1){
                     for (var i in grassArr) {
                         if (norx == grassArr[i].x && nory == grassArr[i].y) {
@@ -101,17 +65,14 @@ class cleaner {
                 matrix[nory][norx] = 5;
             }
             else {
-                this.mahanal()
+                this.die()
             }
         }
     }
 
-
-
-    utel() {
-        var virus = this.yntrelvirus(4);
+    eat() {
+        var virus = this.chooseCell(4);
         var norVandak = random(virus);
-
         if (norVandak) {
             matrix[this.y][this.x] = 0;
             var norx = norVandak[0];
@@ -119,33 +80,28 @@ class cleaner {
             matrix[nory][norx] = 5;
             this.x = norx;
             this.y = nory;
-
             for (var i in VirusArr) {
                 if (norx == VirusArr[i].x && nory == VirusArr[i].y) {
                     VirusArr.splice(i, 1);
                 }
             }
-
             if (this.sovat > 0) {
                 this.sovat -= 1
             }
-
             if (this.bazm >= 15) {
-                this.bazmanal();
+                this.mul();
             }
             else {
                 this.bazm += 1
             }
         }
         else {
-            this.sharjvel();
-
+            this.raid();
         }
-
     }
-    bazmanal() {
-        var norVandak = random(this.yntrelvirus(0));
 
+    mul() {
+        var norVandak = random(this.chooseCell(0));
         if (norVandak) {
             var newx = norVandak[0];
             var newy = norVandak[1];
@@ -153,13 +109,10 @@ class cleaner {
             var newcleaner = new cleaner(newx, newy);
             CleanerArr.push(newcleaner);
             this.bazm = 0;
-
         }
-
     }
 
-
-    mahanal() {
+    die() {
         matrix[this.y][this.x] = 0;
         for (var i in CleanerArr) {
             if (this.x == CleanerArr[i].x && this.y == CleanerArr[i].y) {
