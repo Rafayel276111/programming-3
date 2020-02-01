@@ -1,4 +1,5 @@
-class cleaner extends LivingCreature{
+var LivingCreature = require("./LivingCreature");
+module.exports = class cleaner extends LivingCreature{
     constructor(x, y, index) {
         super(x, y, index);
         this.bazm = 0;

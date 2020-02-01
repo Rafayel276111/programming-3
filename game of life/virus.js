@@ -1,4 +1,5 @@
-class Virus extends LivingCreature{
+var LivingCreature = require("./LivingCreature");
+module.exports = class Virus extends LivingCreature{
 
     chooseCell() {
         var found = [];
