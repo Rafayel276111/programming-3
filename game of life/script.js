@@ -3,15 +3,18 @@ var socket = io();
 var side = 20
 var n = 20;
 var m = 20
+var matrix = []
 
 function setup() {
     frameRate(60);
-    createCanvas(n.length * side, m.length * side);
+    createCanvas(n * side, m * side);
     background('#acacac');
-
+    socket.on("matrix", drawMatrix)
 }
 
 function drawMatrix(matrix) {
+    console.log(matrix)
+    matrix = matrix.matrix;
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 0) {
@@ -40,10 +43,7 @@ function drawMatrix(matrix) {
             }
         }
     }
-socket.on("matrix", drawMatrix)
-
     result()
-
 }
 
 function result(){

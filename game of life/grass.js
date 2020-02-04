@@ -1,9 +1,11 @@
+var random = require("./random");
 var LivingCreature = require("./LivingCreature");
 module.exports = class Grass extends LivingCreature {
 
     mul() {
         this.multiply++;
         var norVandak = random(this.chooseCell(0));
+         console.log(norVandak)
         if (this.multiply >=4 && norVandak) {
             var norXot = new Grass(norVandak[0], norVandak[1]);
             grassArr.push(norXot);

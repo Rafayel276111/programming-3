@@ -1,4 +1,6 @@
 var LivingCreature = require("./LivingCreature");
+var random = require("./random");
+
 module.exports = class Xotaker extends LivingCreature{
     constructor(x, y, index) {
         super(x, y, index);

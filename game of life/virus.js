@@ -1,4 +1,6 @@
 var LivingCreature = require("./LivingCreature");
+var random = require("./random");
+
 module.exports = class Virus extends LivingCreature{
 
     chooseCell() {

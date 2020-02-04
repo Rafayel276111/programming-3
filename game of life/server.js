@@ -11,8 +11,7 @@ app.get('/', function(req, res){
 server.listen(3000, function (){
     console.log("yes")
 });
-
-var matrix = [];
+matrix = [];
 
 objectInMatrix = [1, 2, 3, 4, 5]
 objectInMatrixCounts = [296, 70, 20, 6, 8]
@@ -23,9 +22,8 @@ for (var y = 0; y < 20; y++) {
     }
 }
 for (var i = 0; i < objectInMatrix.length; i++) {
-    fillMatrix(objectInMatrix[i],objectInMatrixCounts[i]);
+    matrix = fillMatrix(objectInMatrix[i],objectInMatrixCounts[i]);
 }
-
 side = 40;
 grassArr = [];
 XotakerArr = [];
@@ -53,7 +51,7 @@ var Gishatich = require('./predator.js');
 var Virus = require('./virus.js');
 var cleaner = require('./cleaner.js');
 
-matrix = fillMatrix(type, count)
+
 for (var y = 0; y < matrix.length; ++y) {
     for (var x = 0; x < matrix[y].length; ++x) {
         if (matrix[y][x] == 1) {
@@ -94,8 +92,10 @@ function drawserver(){
     for (var i in CleanerArr) {
         CleanerArr[i].eat();
     }
-    io.sockets.emit("matrix", matrix);
-
+    let sendData = {
+        matrix: matrix,
+    }
+    io.sockets.emit("data", sendData);
 }
 
 setInterval(drawserver, 3000)
