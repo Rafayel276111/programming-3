@@ -4,25 +4,27 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 app.use(express.static("."));
-app.get('/', function(req, res){
+app.get('/', function (req, res) {
     res.redirect('index.html');
 });
-
-server.listen(3000, function (){
+server.listen(3000, function () {
     console.log("yes")
 });
 matrix = [];
 
 objectInMatrix = [1, 2, 3, 4, 5]
 objectInMatrixCounts = [296, 70, 20, 6, 8]
+
 for (var y = 0; y < 20; y++) {
-    matrix.push([]);
+    matrix[y] = [];
     for (var x = 0; x < 20; x++) {
         matrix[y][x] = 0;
     }
 }
+
 for (var i = 0; i < objectInMatrix.length; i++) {
-    matrix = fillMatrix(objectInMatrix[i],objectInMatrixCounts[i]);
+    matrix = fillMatrix(objectInMatrix[i], objectInMatrixCounts[i]);
+
 }
 side = 40;
 grassArr = [];
@@ -30,13 +32,17 @@ XotakerArr = [];
 GishatichArr = [];
 CleanerArr = []
 VirusArr = []
+weather = ""
+weatherInit = 4
+grassHashiv = 0;
 
-function fillMatrix(type,count) {
+function fillMatrix(type, count) {
+
     for (var i = 0; i < count; i++) {
         var newx = Math.floor(Math.random() * 20)
         var newy = Math.floor(Math.random() * 20)
         if (matrix[newy][newx] == 0) {
-                matrix[newy][newx] = type
+            matrix[newy][newx] = type
         }
         else {
             i--
@@ -45,18 +51,38 @@ function fillMatrix(type,count) {
     return matrix;
 }
 
+
 var Grass = require('./grass.js');
 var Xotaker = require('./grassEater.js');
 var Gishatich = require('./predator.js');
 var Virus = require('./virus.js');
 var cleaner = require('./cleaner.js');
 
+function getWeather(){
+    weatherInit++
+    if (weatherInit == 5){
+        weatherInit = 1
+    }
+    if (weatherInit == 4){
+        weather = "Winter"
+    }
+    else if (weatherInit == 3){
+        weather = "Autumn"
+    }
+    else if (weatherInit == 2){
+        weather = "Summer"
+    }
+    else if (weatherInit == 1){
+        weather = "Spring"
+    }
+}
 
 for (var y = 0; y < matrix.length; ++y) {
     for (var x = 0; x < matrix[y].length; ++x) {
         if (matrix[y][x] == 1) {
             var gr = new Grass(x, y);
             grassArr.push(gr);
+            grassHashiv++
         }
         else if (matrix[y][x] == 2) {
             var gr = new Xotaker(x, y);
@@ -76,7 +102,7 @@ for (var y = 0; y < matrix.length; ++y) {
         }
     }
 }
-function drawserver(){
+function drawserver() {
     for (var i in grassArr) {
         grassArr[i].mul();
     }
@@ -94,8 +120,11 @@ function drawserver(){
     }
     let sendData = {
         matrix: matrix,
+        weather: weather,
+        grassCounter: grassHashiv,
     }
     io.sockets.emit("data", sendData);
 }
 
-setInterval(drawserver, 3000)
+setInterval(drawserver, 500)
+setInterval(getWeather, 4000)

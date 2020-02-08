@@ -4,9 +4,54 @@
 <head>
 	<title>Lesson 1</title>
 	<meta charset="utf-8">
+	<style>
+			canvas {
+				display: block;
+				margin: 0 auto;
+			}
+	
+			div {
+				display: inline-block;
+			}
+	
+			h1 {
+				padding: 20px;
+				text-align: center;
+			}
+	
+			body {
+				font-family: 'Noto Sans', sans-serif !important;
+			}
+		</style>
 </head>
 
 <body>
+		<table class="table table-hover">
+				<thead>
+
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Գույն</th>
+						<th scope="col">Նկարագրություն</th>
+						<th scope="col">Ծնվել է</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">1</th>
+						<td scope="row" style="background-color:green;"></td>
+						<td>Կանաչը խոտն է</td>
+						<td id="grassCount"></td>
+					</tr>
+					<tr>
+						<th scope="row">2</th>
+						<td scope="row" style="background-color:orange;"></td>
+						<td>Դեղինը խոտակերն է</td>
+						<td id="grassEaterCount"></td>
+					</tr>
+				</tbody>
+			</table>
+	<p id="weather"></p>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="script.js"></script>
