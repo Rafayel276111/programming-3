@@ -1,8 +1,8 @@
 
 
 var side = 20
-var n = 20;
-var m = 20
+var n = 40;
+var m = 40
 function setup() {
     var socket = io();
     var matrix = []
@@ -13,13 +13,19 @@ function setup() {
     let htmlWeather = document.getElementById("weather")
     let grassCount = document.getElementById("grassCount")
     let grassEaterCount = document.getElementById("grassEaterCount")
-
+    let predatorCount = document.getElementById("predatorCount")
+    let virusCount = document.getElementById("virusCount")
+    let cleanerCount = document.getElementById("cleanerCount")
 
     function drawMatrix(data) {
         matrix = data.matrix;
         var weather = data.weather
         htmlWeather.innerHTML = weather
         grassCount.innerText = data.grassCounter
+        grassEaterCount.innerText = data.grassEaterCount
+        predatorCount.innerText = data.predatorCount
+        virusCount.innerText = data.virusCount
+        cleanerCount.innerText = data.cleanerCount
         for (var y = 0; y < matrix.length; y++) {
             for (var x = 0; x < matrix[y].length; x++) {
                 if (matrix[y][x] == 0) {
@@ -49,7 +55,7 @@ function setup() {
                     rect(x * side, y * side, side, side);
                 }
                 else if (matrix[y][x] == 3) {
-                    fill("red");
+                    fill("black");
                     rect(x * side, y * side, side, side);
                 }
                 else if (matrix[y][x] == 4) {
@@ -57,42 +63,14 @@ function setup() {
                     rect(x * side, y * side, side, side);
                 }
                 else if (matrix[y][x] == 5) {
-                    fill("#ff00ff");
+                    fill("purple");
+                    rect(x * side, y * side, side, side);
+                }
+                else if (matrix[y][x] == 6) {
+                    fill("red");
                     rect(x * side, y * side, side, side);
                 }
             }
         }
-        // result()
     }
-
-    // function result() {
-    //     var X = 0;
-    //     var V = 0;
-    //     var nothing = 0;
-    //     for (var y = 0; y < 20; y++) {
-    //         for (var x = 0; x < 20; x++) {
-    //             if (matrix[y][x] == 1) {
-    //                 X++
-    //                 if (X == 400) {
-    //                     alert("Only grass survived in the world")
-    //                     endloop
-    //                 }
-    //             }
-    //             else if (matrix[y][x] == 4) {
-    //                 V++
-    //                 if (V == 400) {
-    //                     alert("The virus has destroyed the whole world")
-    //                     endloop
-    //                 }
-    //             }
-    //             else if (matrix[y][x] == 0) {
-    //                 nothing++
-    //                 if (nothing == 400) {
-    //                     alert("All died in the world")
-    //                     endloop
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
 }

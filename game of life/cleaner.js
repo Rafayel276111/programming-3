@@ -106,6 +106,7 @@ module.exports = class cleaner extends LivingCreature{
     mul() {
         var norVandak = random(this.chooseCell(0));
         if (norVandak) {
+            cleanerHashiv++
             var newx = norVandak[0];
             var newy = norVandak[1];
             matrix[newy][newx] = 5;

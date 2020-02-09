@@ -105,6 +105,7 @@ module.exports = class Gishatich extends LivingCreature{
     mul() {
         var norVandak = random(this.chooseCell(0));
         if (norVandak) {
+            predatorHashiv++
             var newx = norVandak[0];
             var newy = norVandak[1];
             matrix[newy][newx] = 3;
