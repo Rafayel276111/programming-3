@@ -113,7 +113,7 @@ function creatingObj() {
             }
             else if (matrix[y][x] == 6) {
                 var gr = new fire(x, y);
-                CleanerArr.push(gr);
+                fireArr.push(gr);
             }
         }
     }
