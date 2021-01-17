@@ -16,13 +16,13 @@ module.exports = class LivingCreature {
        ];
  
     }
-    chooseCell(ch) {
+    chooseCell(ch, ch1, ch2, ch3, ch4, ch5) {
         var found = [];
         for (var i in this.directions) {
             var x = this.directions[i][0];
             var y = this.directions[i][1];
             if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length){
-                if (matrix[y][x] == ch) {
+                if (matrix[y][x] == ch || ch1 || ch2 || ch3  || ch4  || ch5 ) {
                     found.push(this.directions[i]);
                 }
             }   

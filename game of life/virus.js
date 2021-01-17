@@ -9,7 +9,7 @@ module.exports = class Virus extends LivingCreature{
             var x = this.directions[i][0];
             var y = this.directions[i][1];
             if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] !== 4 && matrix[y][x] !== 5) {
+                if (matrix[y][x] !== 4 && matrix[y][x] !== 5 && matrix[y][x] !== 6) {
                         found.push(this.directions[i]);
                 }                
             }
@@ -18,9 +18,10 @@ module.exports = class Virus extends LivingCreature{
     }
 
     mul() {
+        if (weather != "Winter"){
         this.multiply++;
         var norVandak = random(this.chooseCell());
-        if (this.multiply >=10 && norVandak) {
+        if (this.multiply >=100 && norVandak) {
             virusHashiv++
             var norV = new Virus(norVandak[0], norVandak[1]);
             VirusArr.push(norV);
@@ -49,6 +50,7 @@ module.exports = class Virus extends LivingCreature{
             }
             matrix[norVandak[1]][norVandak[0]] = 4;
             this.multiply = 0;
+        }
         }
     }
 }

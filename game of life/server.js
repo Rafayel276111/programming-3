@@ -12,8 +12,8 @@ server.listen(3000, function () {
 });
 matrix = [];
 
-objectInMatrix = [1, 2, 3, 4, 5, 6]
-objectInMatrixCounts = [900, 400, 150, 50, 20, 5]
+objectInMatrix = [1, 2, 3, 4, 5]
+objectInMatrixCounts = [900, 400, 150, 50, 20]
 for (var y = 0; y < 40; y++) {
     matrix[y] = [];
     for (var x = 0; x < 40; x++) {
@@ -24,6 +24,24 @@ for (var y = 0; y < 40; y++) {
 for (var i = 0; i < objectInMatrix.length; i++) {
     matrix = fillMatrix(objectInMatrix[i], objectInMatrixCounts[i]);
 
+}
+
+function fillMatrix(type, count) {
+
+    for (var i = 0; i < count; i++) {
+        var newx = Math.floor(Math.random() * 40)
+        var newy = Math.floor(Math.random() * 40)
+        if (matrix[newy][newx] == 0) {
+            matrix[newy][newx] = type;
+            
+        }
+        else {
+            i--
+        }
+    }
+    console.log(matrix)
+    return matrix;
+    
 }
 grassArr = [];
 XotakerArr = [];
@@ -39,23 +57,7 @@ predatorHashiv = 0;
 virusHashiv = 0;
 cleanerHashiv = 0;
 
-function fillMatrix(type, count) {
 
-    for (var i = 0; i < count; i++) {
-        var newx = Math.floor(Math.random() * 40)
-        var newy = Math.floor(Math.random() * 40)
-        if (matrix[newy][newx] == 0) {
-            matrix[newy][newx] = type
-            
-        }
-        else {
-            i--
-        }
-    }
-    console.log(matrix)
-    return matrix;
-    
-}
 
 var Grass = require('./grass.js');
 var Xotaker = require('./grassEater.js');
@@ -152,5 +154,5 @@ function drawserver() {
     io.sockets.emit("data", sendData);
 }
 
-setInterval(drawserver, 500)
-setInterval(getWeather, 4000)
+setInterval(drawserver, 10)
+setInterval(getWeather, 400)
