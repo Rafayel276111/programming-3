@@ -13,7 +13,7 @@ server.listen(3000, function () {
 matrix = [];
 
 objectInMatrix = [1, 2, 3, 4, 5]
-objectInMatrixCounts = [900, 400, 150, 50, 20]
+objectInMatrixCounts = [900, 50, 20, 2, 1]
 for (var y = 0; y < 40; y++) {
     matrix[y] = [];
     for (var x = 0; x < 40; x++) {
@@ -154,5 +154,5 @@ function drawserver() {
     io.sockets.emit("data", sendData);
 }
 
-setInterval(drawserver, 10)
-setInterval(getWeather, 400)
+setInterval(drawserver, 50)
+setInterval(getWeather, 4000)

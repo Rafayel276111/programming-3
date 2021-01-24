@@ -35,13 +35,16 @@ module.exports = class cleaner extends LivingCreature {
     }
 
     raid() {
-        var datarkVandakner = this.chooseCell(0, 3);
+        var datarkVandakner = this.chooseCell(0, 4);
         var norVandak = random(datarkVandakner);
         if (norVandak) {
             var randomFireSpawn = random(100);
-
+            if(this.bazm > 0){
+                this.bazm -= 1;
+            }
             if (this.sovat < 30) {
                 this.sovat += 1
+                
                 var norx = norVandak[0];
                 var nory = norVandak[1];
                 if (randomFireSpawn == 1) {
@@ -56,10 +59,10 @@ module.exports = class cleaner extends LivingCreature {
                 this.x = norx;
                 this.y = nory;
 
-                if (matrix[nory][norx] == 3) {
-                    for (var i in GishatichArr) {
-                        if (norx == GishatichArr[i].x && nory == GishatichArr[i].y) {
-                            GishatichArr.splice(i, 1);
+                if (matrix[nory][norx] == 4) {
+                    for (var i in VirusArr) {
+                        if (norx == VirusArr[i].x && nory == VirusArr[i].y) {
+                            VirusArr.splice(i, 1);
                         }
                     }
                 }
@@ -103,7 +106,7 @@ module.exports = class cleaner extends LivingCreature {
             if (this.sovat > 0) {
                 this.sovat -= 1
             }
-            if (this.bazm >= 10000) {
+            if (this.bazm >= 100) {
                 this.mul();
             }
             else {
@@ -118,7 +121,7 @@ module.exports = class cleaner extends LivingCreature {
     mul() {
         var norVandak = random(this.chooseCell(0));
         if (norVandak) {
-
+            cleanerHashiv++
             var newx = norVandak[0];
             var newy = norVandak[1];
             matrix[newy][newx] = 5;

@@ -21,7 +21,7 @@ module.exports = class Virus extends LivingCreature{
         if (weather != "Winter"){
         this.multiply++;
         var norVandak = random(this.chooseCell());
-        if (this.multiply >=100 && norVandak) {
+        if (this.multiply >=200 && norVandak) {
             virusHashiv++
             var norV = new Virus(norVandak[0], norVandak[1]);
             VirusArr.push(norV);
