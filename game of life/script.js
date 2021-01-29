@@ -18,6 +18,7 @@ function setup() {
     let cleanerCount = document.getElementById("cleanerCount")
 
     function drawMatrix(data) {
+        console.log(matrix);
         matrix = data.matrix;
         var weather = data.weather
         htmlWeather.innerHTML = weather

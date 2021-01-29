@@ -15,7 +15,7 @@ module.exports = class cleaner extends LivingCreature {
             var x = this.directions[i][0];
             var y = this.directions[i][1];
             if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == ch1 || ch2 )
+                if (matrix[y][x] == ch1 || matrix[y][x] == ch2)
                     found.push(this.directions[i]);
             }
         }
@@ -35,27 +35,19 @@ module.exports = class cleaner extends LivingCreature {
     }
 
     raid() {
+        console.log("raid")
         var datarkVandakner = this.chooseCell(0, 4);
         var norVandak = random(datarkVandakner);
         if (norVandak) {
-            var randomFireSpawn = random(100);
-            if(this.bazm > 0){
+
+            if (this.bazm > 0) {
                 this.bazm -= 1;
             }
-            if (this.sovat < 30) {
-                this.sovat += 1
-                
+            if (this.sovat < 50) {
+                this.sovat += 1;
                 var norx = norVandak[0];
                 var nory = norVandak[1];
-                if (randomFireSpawn == 1) {
-                    matrix[this.y][this.x] = 6;
-                    var newFire = new fire(this.x, this.y);
-                    fireArr.push(newFire);
-                }
-                else {
-                    matrix[this.y][this.x] = 0;
-                }
-
+                matrix[this.y][this.x] = 0;
                 this.x = norx;
                 this.y = nory;
 
@@ -75,14 +67,17 @@ module.exports = class cleaner extends LivingCreature {
     }
 
     eat() {
+        console.log("eat")
         var GrassMeet = this.chooseCell(1, 2);
+        var GrassForFire = this.chooseCell(1)
         var norVandak = random(GrassMeet);
+        console.log(this.chooseCell(1))
         if (norVandak) {
             var randomFireSpawn = random(100);
 
             var norx = norVandak[0];
             var nory = norVandak[1];
-            if (randomFireSpawn == 1) {
+            if (randomFireSpawn == 1 && GrassForFire) {
                 matrix[this.y][this.x] = 6;
                 var newFire = new fire(this.x, this.y);
                 fireArr.push(newFire);
@@ -106,7 +101,7 @@ module.exports = class cleaner extends LivingCreature {
             if (this.sovat > 0) {
                 this.sovat -= 1
             }
-            if (this.bazm >= 100) {
+            if (this.bazm >= 30 ) {
                 this.mul();
             }
             else {
