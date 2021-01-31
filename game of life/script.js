@@ -1,23 +1,27 @@
-
-
+var socket = io();
+socket.on("data", draw)
+var clicked = 0;
 var side = 20
 var n = 40;
 var m = 40
+var EventCol = 150;
+var matrix = []
+
+let htmlWeather = document.getElementById("weather")
+let grassCount = document.getElementById("grassCount")
+let grassEaterCount = document.getElementById("grassEaterCount")
+let predatorCount = document.getElementById("predatorCount")
+let virusCount = document.getElementById("virusCount")
+let cleanerCount = document.getElementById("cleanerCount")
+
 function setup() {
-    var socket = io();
-    var matrix = []
+
+
     createCanvas(n * side, m * side);
     background('#acacac');
-    socket.on("data", drawMatrix)
 
-    let htmlWeather = document.getElementById("weather")
-    let grassCount = document.getElementById("grassCount")
-    let grassEaterCount = document.getElementById("grassEaterCount")
-    let predatorCount = document.getElementById("predatorCount")
-    let virusCount = document.getElementById("virusCount")
-    let cleanerCount = document.getElementById("cleanerCount")
-
-    function drawMatrix(data) {
+}
+    function draw(data) {
         console.log(matrix);
         matrix = data.matrix;
         var weather = data.weather
@@ -30,7 +34,7 @@ function setup() {
         for (var y = 0; y < matrix.length; y++) {
             for (var x = 0; x < matrix[y].length; x++) {
                 if (matrix[y][x] == 0) {
-                    fill("#acacac");
+                    fill(EventCol);
                     rect(x * side, y * side, side, side);
                 }
                 else if (matrix[y][x] == 1) {
@@ -71,7 +75,15 @@ function setup() {
                     fill("red");
                     rect(x * side, y * side, side, side);
                 }
+                else if (matrix[y][x] == 7) {
+                    fill(EventCol);
+                    rect(x * side, y * side, side, side);
+                }
             }
         }
     }
+
+function clickFunction(){
+    socket.emit('lightningEvent');
+    console.log("click")
 }

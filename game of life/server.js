@@ -7,13 +7,18 @@ app.use(express.static("."));
 app.get('/', function (req, res) {
     res.redirect('index.html');
 });
-server.listen(3000, function () {
+server.listen(4000, function () {
     console.log("yes")
 });
+io.on('connection', function (socket){
+socket.on('lightningEvent', function(){
+    console.log("event")
+})
+})
 matrix = [];
 
 objectInMatrix = [1, 2, 3, 4, 5]
-objectInMatrixCounts = [900, 50, 20, 2, 40]
+objectInMatrixCounts = [900, 50, 50, 5, 2]
 for (var y = 0; y < 40; y++) {
     matrix[y] = [];
     for (var x = 0; x < 40; x++) {
@@ -46,16 +51,18 @@ function fillMatrix(type, count) {
 grassArr = [];
 XotakerArr = [];
 GishatichArr = [];
-CleanerArr = []
-VirusArr = []
-fireArr = []
-weather = "Spring"
-weatherInit = 1
+CleanerArr = [];
+VirusArr = [];
+fireArr = [];
+EventArr = [];
+weather = "Spring";
+weatherInit = 1;
 grassHashiv = 0;
 grassEaterHashiv = 0;
 predatorHashiv = 0;
 virusHashiv = 0;
 cleanerHashiv = 0;
+EventCol = 150;
 
 
 
@@ -142,7 +149,9 @@ function drawserver() {
     for (var i in fireArr) {
         fireArr[i].mul();
     }
-    // console.log(CleanerArr)
+    for (var i in EventArr){
+        EventArr[i].run();
+    }
     let sendData = {
         matrix: matrix,
         weather: weather,
@@ -150,7 +159,7 @@ function drawserver() {
         grassEaterCount: grassEaterHashiv,
         predatorCount: predatorHashiv,
         virusCount: virusHashiv,
-        cleanerCount: cleanerHashiv
+        cleanerCount: cleanerHashiv,
     }
     io.sockets.emit("data", sendData);
 }

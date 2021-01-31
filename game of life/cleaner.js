@@ -35,7 +35,6 @@ module.exports = class cleaner extends LivingCreature {
     }
 
     raid() {
-        console.log("raid")
         var datarkVandakner = this.chooseCell(0, 4);
         var norVandak = random(datarkVandakner);
         if (norVandak) {
@@ -67,11 +66,9 @@ module.exports = class cleaner extends LivingCreature {
     }
 
     eat() {
-        console.log("eat")
         var GrassMeet = this.chooseCell(1, 2);
         var GrassForFire = this.chooseCell(1)
         var norVandak = random(GrassMeet);
-        console.log(this.chooseCell(1))
         if (norVandak) {
             var randomFireSpawn = random(100);
 

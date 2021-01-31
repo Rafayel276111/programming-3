@@ -7,7 +7,7 @@ module.exports = class Grass extends LivingCreature {
             this.multiply++;
         }
         else if (weather == "Summer") {
-            this.multiply+=2;
+            this.multiply += 2;
         }
         else if (weather == "Autumn") {
             this.multiply++;
