@@ -1,3 +1,5 @@
+// SocketIo
+
 var express = require('express');
 var app = express();
 var server = require('http').Server(app);
@@ -10,44 +12,30 @@ app.get('/', function (req, res) {
 server.listen(4000, function () {
     console.log("yes")
 });
-io.on('connection', function (socket){
-socket.on('lightningEvent', function(){
-    console.log("event")
-})
-})
+
 matrix = [];
 
-objectInMatrix = [1, 2, 3, 4, 5]
-objectInMatrixCounts = [900, 50, 50, 5, 2]
-for (var y = 0; y < 40; y++) {
-    matrix[y] = [];
-    for (var x = 0; x < 40; x++) {
-        matrix[y][x] = 0;
-    }
-}
+var Grass = require('./grass.js');
+var Xotaker = require('./grassEater.js');
+var Gishatich = require('./predator.js');
+var Virus = require('./virus.js');
+var cleaner = require('./cleaner.js');
+var fire = require('./fire.js');
+var events = require('./newevent.js');
+const { runInContext } = require('vm');
 
-for (var i = 0; i < objectInMatrix.length; i++) {
-    matrix = fillMatrix(objectInMatrix[i], objectInMatrixCounts[i]);
+io.on('connection', function (socket) {
+     socket.on('lightningEvent', function(data){
+        console.log("event")
+        mouseX = data.mouseX
+        mouseY = data.mouseY
+        console.log(mouseX, mouseY)
+        events.run()
+     })
+})
 
-}
+//Masivies
 
-function fillMatrix(type, count) {
-
-    for (var i = 0; i < count; i++) {
-        var newx = Math.floor(Math.random() * 40)
-        var newy = Math.floor(Math.random() * 40)
-        if (matrix[newy][newx] == 0) {
-            matrix[newy][newx] = type;
-            
-        }
-        else {
-            i--
-        }
-    }
-    console.log(matrix)
-    return matrix;
-    
-}
 grassArr = [];
 XotakerArr = [];
 GishatichArr = [];
@@ -64,34 +52,37 @@ virusHashiv = 0;
 cleanerHashiv = 0;
 EventCol = 150;
 
+//MatrixGenerator
 
+objectInMatrix = [1, 2, 3, 4, 5]
+objectInMatrixCounts = [900, 50, 50, 5, 2]
 
-var Grass = require('./grass.js');
-var Xotaker = require('./grassEater.js');
-var Gishatich = require('./predator.js');
-var Virus = require('./virus.js');
-var cleaner = require('./cleaner.js');
-var fire = require('./fire.js');
-
-function getWeather() {
-    weatherInit++
-    if (weatherInit == 5) {
-        weatherInit = 1
+for (var y = 0; y < 40; y++) {
+    matrix[y] = [];
+    for (var x = 0; x < 40; x++) {
+        matrix[y][x] = 0;
     }
-    if (weatherInit == 4) {
-        weather = "Winter"
-    }
-    else if (weatherInit == 3) {
-        weather = "Autumn"
-    }
-    else if (weatherInit == 2) {
-        weather = "Summer"
-    }
-    else if (weatherInit == 1) {
-        weather = "Spring"
-    }
-    return weather
 }
+
+for (var i = 0; i < objectInMatrix.length; i++) {
+    matrix = fillMatrix(objectInMatrix[i], objectInMatrixCounts[i]);
+}
+
+function fillMatrix(type, count) {
+    for (var i = 0; i < count; i++) {
+        var newx = Math.floor(Math.random() * 40)
+        var newy = Math.floor(Math.random() * 40)
+        if (matrix[newy][newx] == 0) {
+            matrix[newy][newx] = type;
+        }
+        else {
+            i--
+        }
+    }
+    console.log(matrix)
+    return matrix;
+}
+
 function creatingObj() {
     for (var y = 0; y < matrix.length; ++y) {
         for (var x = 0; x < matrix[y].length; ++x) {
@@ -128,7 +119,38 @@ function creatingObj() {
     }
 }
 
+//Weather
+function GetCordinateData(lightningEvent){
+        console.log("event")
+        mouseX = lightningEvent.mouseX
+        mouseY = lightningEvent.mouseY
+        console.log(mouseX, mouseY)
+        events.run()
+        
+}
+function getWeather() {
+    weatherInit++
+    if (weatherInit == 5) {
+        weatherInit = 1
+    }
+    if (weatherInit == 4) {
+        weather = "Winter"
+    }
+    else if (weatherInit == 3) {
+        weather = "Autumn"
+    }
+    else if (weatherInit == 2) {
+        weather = "Summer"
+    }
+    else if (weatherInit == 1) {
+        weather = "Spring"
+    }
+    return weather
+}
+//
 creatingObj()
+//
+    
 
 function drawserver() {
     for (var i in grassArr) {
@@ -149,9 +171,8 @@ function drawserver() {
     for (var i in fireArr) {
         fireArr[i].mul();
     }
-    for (var i in EventArr){
-        EventArr[i].run();
-    }
+
+    //
     let sendData = {
         matrix: matrix,
         weather: weather,
@@ -160,10 +181,11 @@ function drawserver() {
         predatorCount: predatorHashiv,
         virusCount: virusHashiv,
         cleanerCount: cleanerHashiv,
+        EventCol: EventCol
     }
     io.sockets.emit("data", sendData);
+    //
 }
-
-
-setInterval(drawserver, 80)
+//
+setInterval(drawserver, 50)
 setInterval(getWeather, 4000)
