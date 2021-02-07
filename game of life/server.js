@@ -21,17 +21,19 @@ var Gishatich = require('./predator.js');
 var Virus = require('./virus.js');
 var cleaner = require('./cleaner.js');
 var fire = require('./fire.js');
-var events = require('./newevent.js');
+var Evnt = require('./newevent.js');
 const { runInContext } = require('vm');
 
 io.on('connection', function (socket) {
-     socket.on('lightningEvent', function(data){
+    socket.on('lightningEvent', function (data) {
+        var evnt = new Evnt(x, y)
+        evntArr.push(evnt);
         console.log("event")
         mouseX = data.mouseX
         mouseY = data.mouseY
         console.log(mouseX, mouseY)
-        events.run()
-     })
+        evnt.run()
+    })
 })
 
 //Masivies
@@ -42,7 +44,7 @@ GishatichArr = [];
 CleanerArr = [];
 VirusArr = [];
 fireArr = [];
-EventArr = [];
+evntArr = [];
 weather = "Spring";
 weatherInit = 1;
 grassHashiv = 0;
@@ -50,6 +52,8 @@ grassEaterHashiv = 0;
 predatorHashiv = 0;
 virusHashiv = 0;
 cleanerHashiv = 0;
+fireHashiv = 0;
+evntHashiv = 0;
 EventCol = 150;
 
 //MatrixGenerator
@@ -120,13 +124,13 @@ function creatingObj() {
 }
 
 //Weather
-function GetCordinateData(lightningEvent){
-        console.log("event")
-        mouseX = lightningEvent.mouseX
-        mouseY = lightningEvent.mouseY
-        console.log(mouseX, mouseY)
-        events.run()
-        
+function GetCordinateData(lightningEvent) {
+    console.log("event")
+    mouseX = lightningEvent.mouseX
+    mouseY = lightningEvent.mouseY
+    console.log(mouseX, mouseY)
+    events.run()
+
 }
 function getWeather() {
     weatherInit++
@@ -150,7 +154,7 @@ function getWeather() {
 //
 creatingObj()
 //
-    
+
 
 function drawserver() {
     for (var i in grassArr) {
@@ -181,6 +185,8 @@ function drawserver() {
         predatorCount: predatorHashiv,
         virusCount: virusHashiv,
         cleanerCount: cleanerHashiv,
+        fireCount: fireHashiv,
+        evntCount: evntHashiv,
         EventCol: EventCol
     }
     io.sockets.emit("data", sendData);

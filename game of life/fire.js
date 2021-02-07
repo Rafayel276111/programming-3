@@ -25,6 +25,7 @@ module.exports = class fire extends LivingCreature {
 
             if (this.multiply >= 20) {
                 if (norVandak) {
+                    fireHashiv++
                     var norV = new fire(norVandak[0], norVandak[1]);
                     fireArr.push(norV);
                     var norx = norVandak[0]

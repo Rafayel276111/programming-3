@@ -4,7 +4,6 @@ var clicked = 0;
 var side = 20
 var n = 40;
 var m = 40
-var EventCol = 150;
 var matrix = []
 var mouseClcX = 0
 var mouseClcY = 0
@@ -15,6 +14,9 @@ let grassEaterCount = document.getElementById("grassEaterCount")
 let predatorCount = document.getElementById("predatorCount")
 let virusCount = document.getElementById("virusCount")
 let cleanerCount = document.getElementById("cleanerCount")
+let fireCount = document.getElementById("fireCount")
+let evntCount = document.getElementById("evntCount")
+
 
 function setup() {
     createCanvas(n * side, m * side);
@@ -22,7 +24,6 @@ function setup() {
 }
 
 function draw(data) {
-    // console.log(matrix);
     matrix = data.matrix;
     EventCol = data.EventCol
     var weather = data.weather
@@ -32,6 +33,8 @@ function draw(data) {
     predatorCount.innerText = data.predatorCount
     virusCount.innerText = data.virusCount
     cleanerCount.innerText = data.cleanerCount
+    fireCount.innerText = data.fireCount
+    evntCount.innerText = data.evntCount
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             strokeWeight(1);
@@ -78,11 +81,11 @@ function draw(data) {
                 rect(x * side, y * side, side, side);
             }
             else if (matrix[y][x] == 7) {
-                fill(EventCol);
+                fill("lightblue");
                 rect(x * side, y * side, side, side);
             }
         }
-        strokeWeight(1);
+        strokeWeight(2);
         line(mouseX, 0, mouseX, 800);
         strokeWeight(2);
         line(0, mouseY, 800, mouseY);
@@ -93,14 +96,12 @@ function draw(data) {
 }
 
 
-function mousePressed() {
-    clc = [1,2,3]
+function mouseClicked() {
     let CordinateData = {
         mouseX: mouseClcX,
         mouseY: mouseClcY,
-        clc:clc
     }
-    socketsemit('lightningEvent', CordinateData);
+    socket.emit('lightningEvent', CordinateData);
     console.log("clickCanvas")
     console.log(mouseClcY, mouseClcX)
 }
