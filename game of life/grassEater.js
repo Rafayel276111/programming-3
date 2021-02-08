@@ -7,9 +7,9 @@ module.exports = class Xotaker extends LivingCreature{
         this.bazm = 0;
         this.sovat = 0;
     }
-    chooseCell(ch) {
+    chooseCell(ch, ch1) {
         this.getNewCoordinat();
-        return super.chooseCell(ch)
+        return super.chooseCell(ch, ch1)
     }
 
     getNewCoordinat() {
@@ -27,7 +27,7 @@ module.exports = class Xotaker extends LivingCreature{
     }
 
     ride() {
-        var datarkVandakner = this.chooseCell(0);
+        var datarkVandakner = this.chooseCell(0,7);
         var norVandak = random(datarkVandakner);
         if (norVandak) {        
             if(this.bazm > 0){

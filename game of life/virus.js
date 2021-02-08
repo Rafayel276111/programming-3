@@ -3,25 +3,11 @@ var random = require("./random");
 
 module.exports = class Virus extends LivingCreature{
 
-    chooseCell() {
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] !== 4 && matrix[y][x] !== 5 && matrix[y][x] !== 6) {
-                        found.push(this.directions[i]);
-                }                
-            }
-        }
-        return found;
-    }
-
     mul() {
         if (weather != "Winter"){
         this.multiply++;
-        var norVandak = random(this.chooseCell());
-        if (this.multiply >=200 && norVandak) {
+        var norVandak = random(this.chooseCell(0,1,2,3,7));
+        if (this.multiply >=60 && norVandak) {
             virusHashiv++
             var norV = new Virus(norVandak[0], norVandak[1]);
             VirusArr.push(norV);

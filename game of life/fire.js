@@ -4,26 +4,12 @@ var random = require("./random");
 
 module.exports = class fire extends LivingCreature {
 
-    chooseCell() {
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] != 6 && matrix[y][x] != 0) {
-                    found.push(this.directions[i]);
-                }
-            }
-        }
-        return found;
-    }
-
     mul() {
         if (weather != "Winter") {
             this.multiply++;
-            var norVandak = random(this.chooseCell());
+            var norVandak = random(this.chooseCell(1,2,3,4,5));
 
-            if (this.multiply >= 20) {
+            if (this.multiply >= 8) {
                 if (norVandak) {
                     fireHashiv++
                     var norV = new fire(norVandak[0], norVandak[1]);

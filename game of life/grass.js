@@ -14,7 +14,7 @@ module.exports = class Grass extends LivingCreature {
         }
         else if (weather == "Winter") {
         }
-        var norVandak = random(this.chooseCell(0));
+        var norVandak = random(this.chooseCell(0,7));
         if (this.multiply >= 4 && norVandak) {
             grassHashiv++
             var norXot = new Grass(norVandak[0], norVandak[1]);

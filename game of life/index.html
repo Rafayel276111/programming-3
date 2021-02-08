@@ -40,37 +40,37 @@
 			<tr>
 				<th scope="row">1</th>
 				<td scope="row" style="background-color:green;"></td>
-				<td>Կանաչը խոտն է (կախված եղանակից գույնը փոխվում է)</td>
+				<td>Կանաչը խոտն է (Կախված եղանակից գույնը փոխվում է՝ ամռանը 2 անգ․ ավելի արագ է բազմ․ իսկ ձմռանը ոչ)</td>
 				<td id="grassCount"></td>
 			</tr>
 			<tr>
 				<th scope="row">2</th>
 				<td scope="row" style="background-color:yellow;"></td>
-				<td>Դեղինը խոտակերն է (ուտում է խոտերին)</td>
+				<td>Դեղինը խոտակերն է (Ուտում է խոտերին)</td>
 				<td id="grassEaterCount"></td>
 			</tr>
 			<tr>
 				<th scope="row">3</th>
 				<td scope="row" style="background-color:black;"></td>
-				<td>Կարմիրը գիշատիչն է (ուտում է խոտակերներին)</td>
+				<td>Կարմիրը գիշատիչն է (Ուտում է խոտակերներին)</td>
 				<td id="predatorCount"></td>
 			</tr>
 			<tr>
 				<th scope="row">4</th>
 				<td scope="row" style="background-color:pink;"></td>
-				<td>Վարդագույնը վիրուսն է (սպանում է բոլորին բացի մաքրիչից)</td>
+				<td>Վարդագույնը վիրուսն է (Սպանում է բոլորին բացի կրակից)</td>
 				<td id="virusCount"></td>
 			</tr>
 			<tr>
 				<th scope="row">5</th>
 				<td scope="row" style="background-color:purple;"></td>
-				<td>Մանուշակագույնը մարդն է (ուտում է խոտ, խոտակեր և գիշատիչ)</td>
+				<td>Մանուշակագույնը մարդն է (Ուտում է խոտ, խոտակեր և գիշատիչ։ Կարող է կրակ վառել)</td>
 				<td id="cleanerCount"></td>
 			</tr>
 			<tr>
 				<th scope="row">6</th>
 				<td scope="row" style="background-color:red;"></td>
-				<td>Կարմիրը կրակ է (այրում է ամենինչ բայց աշնանը)</td>
+				<td>Կարմիրը կրակ է (Այրում է ամենինչ՝ աշնանը 2 անգ․ ավելի արագ իսկ զմռանը հանգչում)</td>
 				<td id="fireCount"></td>
 			</tr>
 			<tr>
@@ -79,10 +79,14 @@
 				<td>երկնագույնը կայծակն է (վերացնում է բոլորին)</td>
 				<td id="evntCount"></td>
 			</tr>
+			
+
 		</tbody>
 	</table>
-	<p id="weather"></p>
-	<button onclick="clickFunction()">Click me</button>
+	<h2 style="color: orange; text-align: left;" id="weather"></h2>		
+	<h2 style="color: green; text-align: left;">Click On Canvas</h2>
+
+	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="script.js"></script>

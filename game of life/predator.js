@@ -8,9 +8,9 @@ module.exports = class Gishatich extends LivingCreature{
         this.sovat = 0;
     }
 
-    chooseCell(ch) {
+    chooseCell(ch, ch1) {
         this.getNewCoordinat();
-        return super.chooseCell(ch)
+        return super.chooseCell(ch, ch1)
     }
 
     getNewCoordinat() {
@@ -27,7 +27,7 @@ module.exports = class Gishatich extends LivingCreature{
     }
 
     ride() {
-        var datarkVandakner = this.chooseCell(0);
+        var datarkVandakner = this.chooseCell(0,7);
         var norVandak = random(datarkVandakner);
         var xotvandak = this.chooseCell(1);
         var xotrand = random(xotvandak);
@@ -49,10 +49,10 @@ module.exports = class Gishatich extends LivingCreature{
             }
         }
         else if(norVandak == undefined && xotrand){
-            if(this.bazm > 0){
-                this.bazm -= 1
-            }
-                if(this.sovat < 10){
+            // if(this.bazm > 0){
+            //     this.bazm -= 1
+            // }
+                if(this.sovat < 40){
                     this.sovat += 1
                     matrix[this.y][this.x] = 0;
                     var norx = xotrand[0];
@@ -90,7 +90,7 @@ module.exports = class Gishatich extends LivingCreature{
             if(this.sovat > 0){
                 this.sovat -= 1
             }
-            if(this.bazm >=5){
+            if(this.bazm >=3){
                 this.mul();
             }
             else{

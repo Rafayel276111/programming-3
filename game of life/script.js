@@ -96,7 +96,7 @@ function draw(data) {
 }
 
 
-function mouseClicked() {
+function mousePressed() {
     let CordinateData = {
         mouseX: mouseClcX,
         mouseY: mouseClcY,
@@ -105,3 +105,13 @@ function mouseClicked() {
     console.log("clickCanvas")
     console.log(mouseClcY, mouseClcX)
 }
+function doubleMoved() {
+        let CordinateData = {
+            mouseX: mouseClcX,
+            mouseY: mouseClcY,
+        }
+        socket.emit('lightningEvent', CordinateData);
+        console.log("clickCanvas")
+        console.log(mouseClcY, mouseClcX)
+    
+  }

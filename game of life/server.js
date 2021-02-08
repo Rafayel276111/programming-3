@@ -10,7 +10,75 @@ app.get('/', function (req, res) {
     res.redirect('index.html');
 });
 server.listen(4000, function () {
-    console.log("yes")
+    console.log("HostRun")
+    //MatrixGenerator
+
+    objectInMatrix = [1, 2, 3, 4, 5]
+    objectInMatrixCounts = [900, 50, 50, 5, 2]
+
+    for (var y = 0; y < 40; y++) {
+        matrix[y] = [];
+        for (var x = 0; x < 40; x++) {
+            matrix[y][x] = 0;
+        }
+    }
+
+    for (var i = 0; i < objectInMatrix.length; i++) {
+        matrix = fillMatrix(objectInMatrix[i], objectInMatrixCounts[i]);
+    }
+
+    function fillMatrix(type, count) {
+        for (var i = 0; i < count; i++) {
+            var newx = Math.floor(Math.random() * 40)
+            var newy = Math.floor(Math.random() * 40)
+            if (matrix[newy][newx] == 0) {
+                matrix[newy][newx] = type;
+            }
+            else {
+                i--
+            }
+        }
+        return matrix;
+    }
+
+    function creatingObj() {
+        for (var y = 0; y < matrix.length; ++y) {
+            for (var x = 0; x < matrix[y].length; ++x) {
+                if (matrix[y][x] == 1) {
+                    var gr = new Grass(x, y);
+                    grassArr.push(gr);
+                    grassHashiv++
+                }
+                else if (matrix[y][x] == 2) {
+                    var gr = new Xotaker(x, y);
+                    XotakerArr.push(gr);
+                    grassEaterHashiv++
+                }
+                else if (matrix[y][x] == 3) {
+                    var gr = new Gishatich(x, y);
+                    GishatichArr.push(gr);
+                    predatorHashiv++
+                }
+                else if (matrix[y][x] == 4) {
+                    var gr = new Virus(x, y);
+                    VirusArr.push(gr);
+                    virusHashiv++
+                }
+                else if (matrix[y][x] == 5) {
+                    var gr = new cleaner(x, y);
+                    CleanerArr.push(gr);
+                    cleanerHashiv++
+                }
+                else if (matrix[y][x] == 6) {
+                    var gr = new fire(x, y);
+                    fireArr.push(gr);
+                }
+            }
+        }
+    }
+    creatingObj()
+    console.log("MatrixGenerated")
+    //MatrixGenerator
 });
 
 matrix = [];
@@ -26,12 +94,9 @@ const { runInContext } = require('vm');
 
 io.on('connection', function (socket) {
     socket.on('lightningEvent', function (data) {
-        var evnt = new Evnt(x, y)
-        evntArr.push(evnt);
-        console.log("event")
+        var evnt = new Evnt()
         mouseX = data.mouseX
         mouseY = data.mouseY
-        console.log(mouseX, mouseY)
         evnt.run()
     })
 })
@@ -44,7 +109,6 @@ GishatichArr = [];
 CleanerArr = [];
 VirusArr = [];
 fireArr = [];
-evntArr = [];
 weather = "Spring";
 weatherInit = 1;
 grassHashiv = 0;
@@ -56,82 +120,8 @@ fireHashiv = 0;
 evntHashiv = 0;
 EventCol = 150;
 
-//MatrixGenerator
-
-objectInMatrix = [1, 2, 3, 4, 5]
-objectInMatrixCounts = [900, 50, 50, 5, 2]
-
-for (var y = 0; y < 40; y++) {
-    matrix[y] = [];
-    for (var x = 0; x < 40; x++) {
-        matrix[y][x] = 0;
-    }
-}
-
-for (var i = 0; i < objectInMatrix.length; i++) {
-    matrix = fillMatrix(objectInMatrix[i], objectInMatrixCounts[i]);
-}
-
-function fillMatrix(type, count) {
-    for (var i = 0; i < count; i++) {
-        var newx = Math.floor(Math.random() * 40)
-        var newy = Math.floor(Math.random() * 40)
-        if (matrix[newy][newx] == 0) {
-            matrix[newy][newx] = type;
-        }
-        else {
-            i--
-        }
-    }
-    console.log(matrix)
-    return matrix;
-}
-
-function creatingObj() {
-    for (var y = 0; y < matrix.length; ++y) {
-        for (var x = 0; x < matrix[y].length; ++x) {
-            if (matrix[y][x] == 1) {
-                var gr = new Grass(x, y);
-                grassArr.push(gr);
-                grassHashiv++
-            }
-            else if (matrix[y][x] == 2) {
-                var gr = new Xotaker(x, y);
-                XotakerArr.push(gr);
-                grassEaterHashiv++
-            }
-            else if (matrix[y][x] == 3) {
-                var gr = new Gishatich(x, y);
-                GishatichArr.push(gr);
-                predatorHashiv++
-            }
-            else if (matrix[y][x] == 4) {
-                var gr = new Virus(x, y);
-                VirusArr.push(gr);
-                virusHashiv++
-            }
-            else if (matrix[y][x] == 5) {
-                var gr = new cleaner(x, y);
-                CleanerArr.push(gr);
-                cleanerHashiv++
-            }
-            else if (matrix[y][x] == 6) {
-                var gr = new fire(x, y);
-                fireArr.push(gr);
-            }
-        }
-    }
-}
-
 //Weather
-function GetCordinateData(lightningEvent) {
-    console.log("event")
-    mouseX = lightningEvent.mouseX
-    mouseY = lightningEvent.mouseY
-    console.log(mouseX, mouseY)
-    events.run()
 
-}
 function getWeather() {
     weatherInit++
     if (weatherInit == 5) {
@@ -152,7 +142,7 @@ function getWeather() {
     return weather
 }
 //
-creatingObj()
+
 //
 
 
@@ -193,5 +183,5 @@ function drawserver() {
     //
 }
 //
-setInterval(drawserver, 50)
+setInterval(drawserver, 150)
 setInterval(getWeather, 4000)
